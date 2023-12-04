@@ -1,0 +1,1 @@
+curl https://adventofcode.com/2023/day/1/input --cookie "session=SESSION" > "input.csv"
