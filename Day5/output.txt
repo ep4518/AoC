@@ -1,0 +1,28 @@
+2104769324
+         686 function calls in 56.314 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000   56.314   56.314 {built-in method builtins.exec}
+        1   21.868   21.868   56.314   56.314 <string>:1(<module>)
+        1    0.000    0.000   34.446   34.446 day5_2np.py:7(profile_code)
+        1    0.000    0.000   34.445   34.445 day5_2np.py:97(parse)
+        1   34.445   34.445   34.445   34.445 day5_2np.py:88(seed_convert)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+      226    0.000    0.000    0.000    0.000 {method 'split' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 {built-in method _io.open}
+        1    0.000    0.000    0.000    0.000 {method 'readlines' of '_io._IOBase' objects}
+      211    0.000    0.000    0.000    0.000 {method 'append' of 'list' objects}
+        1    0.000    0.000    0.000    0.000 {method '__exit__' of '_io._IOBase' objects}
+      219    0.000    0.000    0.000    0.000 {method 'isalpha' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.print}
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.sorted}
+        2    0.000    0.000    0.000    0.000 <frozen codecs>:319(decode)
+        2    0.000    0.000    0.000    0.000 {built-in method _codecs.utf_8_decode}
+        1    0.000    0.000    0.000    0.000 <frozen codecs>:309(__init__)
+        3    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+       10    0.000    0.000    0.000    0.000 day5_2np.py:91(<lambda>)
+        1    0.000    0.000    0.000    0.000 <frozen codecs>:260(__init__)
+
+
