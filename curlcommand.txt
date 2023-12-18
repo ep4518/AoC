@@ -1,2 +1,2 @@
-curl https://adventofcode.com/2023/day/4/input --cookie "session=SESSION" > "input.txt"
+curl https://adventofcode.com/2023/day/6/input --cookie "session=SESSION" > "input.txt"
 
