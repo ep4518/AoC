@@ -1,0 +1,26 @@
+# for line in grid2:
+#     outside = True
+#     startF = None
+#     for ch in line:
+#         match ch:
+#             case ".":
+#                 if not outside:
+#                     part2 += 1
+#             case "|":
+#                 outside = not outside
+#             case "F":
+#                 startF = True
+#             case "L":
+#                 startF = False
+#             case "-":
+#                 assert not startF is None
+#             case "7":
+#                 assert not startF is None
+#                 if not startF:
+#                     outside = not outside
+#                 startF = None
+#             case "J":
+#                 assert not startF is None
+#                 if startF:
+#                     outside = not outside
+#                 startF = None
