@@ -6,23 +6,37 @@ class universeDecoder:
     def decode(self, rows):
         total = 0
         grid = self.parse(rows)
-        expandedGrid = self.expand(grid)
-        galaxies = self.find_galaxies(expandedGrid)
+        galaxies = self.find_galaxies(grid)
+        empties = self.find_empty(grid)
+        print(empties)
         galaxyPairs = combinations(galaxies.keys(), 2)
 
         for pair in list(galaxyPairs):
-            distance = self.calculate_distance(galaxies[pair[0]], galaxies[pair[1]])
+            distance = self.calculate_distance(galaxies[pair[0]], galaxies[pair[1]], 10, empties)
             total += distance
 
-        return total
+        return total 
     
-    def calculate_distance(self, galaxy1: tuple[int, int], galaxy2: tuple[int, int]) -> int:
+    def calculate_distance(self, galaxy1: tuple[int, int], galaxy2: tuple[int, int], expansion: int, empties: list[list[int]]) -> int:
         x1, y1 = galaxy1
         x2, y2 = galaxy2
-        
-        print( abs(x1 - x2) + abs(y1 - y2))
+        empty_rows = empties[0]
+        empty_columns = empties[1]
+        total = 0
 
-        return abs(x1 - x2) + abs(y1 - y2)
+        for i in range(min(y1, y2), max(y1, y2)):
+            if empty_rows[i] != 0:
+                total += expansion 
+            else:
+                total += 1
+
+        for i in range(min(x1, x2), max(x1, x2)):
+            if empty_columns[i] != 0:
+                total += expansion 
+            else:
+                total += 1
+        print(galaxy1, galaxy2, total)
+        return total
     
     def find_galaxies(self, grid: list[list[str]]) -> dict:
         galaxies = {}
@@ -35,27 +49,21 @@ class universeDecoder:
         
         return galaxies
 
-    def expand(self, grid: list[list[str]]) -> list[list[str]]:
-        grid = self.add_rows(grid)
-
+    def find_empty(self, grid: list[list[str]]) -> list[list[int]]:
+        empties = [[0] * len(grid),[0] * len(grid [0])]
+        for i, row in enumerate(grid):
+            print(i, row)
+            if not any(ch == '#' for ch in row):
+                empties[0][i] = 1 
+        
         transpose = [list(row) for row in zip(*grid)]
 
-        transpose = self.add_rows(transpose)
-
-        grid  = [list(row) for row in zip(*transpose)]
-                
-        return grid
-    
-    def add_rows(self, grid: list[list[str]]) -> list[list[str]]:
-        new = []
-        for row in grid:
+        for i, row in enumerate(transpose):
             if not any(ch == '#' for ch in row):
-                for i in range(9):
-                    new.append(row)
-            new.append(row)
-        
-        return new
-
+                empties[1][i] = 1 
+ 
+        return empties
+    
     def parse(self, rows: list[str]) -> list[list[str]]:
         new = []
         for row in rows:
@@ -75,8 +83,8 @@ def main():
         with open(sys.argv[1], 'r') as file:
             rows = file.readlines()
             universe = universeDecoder()
-            Part1 = universe.decode(rows=rows)
-            print(f"Part 1: {Part1}")
+            Part2 = universe.decode(rows=rows)
+            print(f"Part 2: {Part2}")
 
 
     except FileNotFoundError:
