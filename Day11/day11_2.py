@@ -4,22 +4,25 @@ from itertools import combinations
 
 class universeDecoder:
     def decode(self, rows):
-        total = 0
+        total_sum = 0
         grid = self.parse(rows)
         galaxies = self.find_galaxies(grid)
         empties = self.find_empty(grid)
-        print(empties)
+        # print(empties)
         galaxyPairs = combinations(galaxies.keys(), 2)
 
-        for pair in list(galaxyPairs):
-            distance = self.calculate_distance(galaxies[pair[0]], galaxies[pair[1]], 10, empties)
-            total += distance
+        # [print(key, value) for key, value in galaxies.items()]
+        i = 0
 
-        return total 
+        for pair in list(galaxyPairs):
+            distance = self.calculate_distance(galaxies[pair[0]], galaxies[pair[1]], 1000000, empties)
+            total_sum += distance
+
+        return total_sum
     
     def calculate_distance(self, galaxy1: tuple[int, int], galaxy2: tuple[int, int], expansion: int, empties: list[list[int]]) -> int:
-        x1, y1 = galaxy1
-        x2, y2 = galaxy2
+        y1, x1 = galaxy1
+        y2, x2 = galaxy2
         empty_rows = empties[0]
         empty_columns = empties[1]
         total = 0
@@ -35,7 +38,6 @@ class universeDecoder:
                 total += expansion 
             else:
                 total += 1
-        print(galaxy1, galaxy2, total)
         return total
     
     def find_galaxies(self, grid: list[list[str]]) -> dict:
@@ -52,7 +54,7 @@ class universeDecoder:
     def find_empty(self, grid: list[list[str]]) -> list[list[int]]:
         empties = [[0] * len(grid),[0] * len(grid [0])]
         for i, row in enumerate(grid):
-            print(i, row)
+            # print(i, row)
             if not any(ch == '#' for ch in row):
                 empties[0][i] = 1 
         

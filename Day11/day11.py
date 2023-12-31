@@ -6,21 +6,28 @@ class universeDecoder:
     def decode(self, rows):
         total = 0
         grid = self.parse(rows)
-        expandedGrid = self.expand(grid)
-        galaxies = self.find_galaxies(expandedGrid)
+        grid = self.expand(grid, 1)
+        galaxies = self.find_galaxies(grid)
         galaxyPairs = combinations(galaxies.keys(), 2)
+
+        # self.prn_grid(grid)
 
         for pair in list(galaxyPairs):
             distance = self.calculate_distance(galaxies[pair[0]], galaxies[pair[1]])
             total += distance
+            #int(pair[0], galaxies[pair[0]], pair[1], galaxies[pair[1]], distance)
 
         return total
+    
+    def prn_grid(self, grid: list[list[str]]) -> None:
+        for row in grid:
+            print(row)
     
     def calculate_distance(self, galaxy1: tuple[int, int], galaxy2: tuple[int, int]) -> int:
         x1, y1 = galaxy1
         x2, y2 = galaxy2
         
-        print( abs(x1 - x2) + abs(y1 - y2))
+        # print( abs(x1 - x2) + abs(y1 - y2))
 
         return abs(x1 - x2) + abs(y1 - y2)
     
@@ -35,22 +42,22 @@ class universeDecoder:
         
         return galaxies
 
-    def expand(self, grid: list[list[str]]) -> list[list[str]]:
-        grid = self.add_rows(grid)
+    def expand(self, grid: list[list[str]], n: int) -> list[list[str]]:
+        grid = self.add_rows(grid, n)
 
         transpose = [list(row) for row in zip(*grid)]
 
-        transpose = self.add_rows(transpose)
+        transpose = self.add_rows(transpose, n)
 
         grid  = [list(row) for row in zip(*transpose)]
                 
         return grid
     
-    def add_rows(self, grid: list[list[str]]) -> list[list[str]]:
+    def add_rows(self, grid: list[list[str]], n: int) -> list[list[str]]:
         new = []
         for row in grid:
             if not any(ch == '#' for ch in row):
-                for i in range(9):
+                for i in range(n):
                     new.append(row)
             new.append(row)
         
