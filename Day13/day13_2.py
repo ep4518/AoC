@@ -10,21 +10,23 @@ class springsDecoder:
             # print(f" ============ This is Grid {i + 1}. =========== ")
             # for row in grid:
             #     print(row)
-            reflection_in_x_axis = self.find_mirror(grid = grid)
-            reflection_in_y_axis = self.find_mirror(grid = transposed_grid)
+            reflection_in_x_axis = self.find_mirror(grid = grid, diffs = 1)
+            reflection_in_y_axis = self.find_mirror(grid = transposed_grid, diffs = 1)
             total += 100 * reflection_in_x_axis + reflection_in_y_axis
             
         return total
     
-    def find_mirror(self, grid: list[str]) -> int:
+    def find_mirror(self, grid: list[str], diffs: int = 0) -> int:
         for i in range(1, len(grid)):
-            flag = True
+            total = 0
             above = grid[:i][::-1]
             below = grid[i:]
             for above_row, below_row in zip(above, below):
-                if above_row != below_row:
-                    flag = False
-            if flag:            
+                for a, b in zip(above_row, below_row):
+                    if a != b:
+                        total += 1
+
+            if total == diffs:          
                 return i
         return 0 
     
@@ -42,15 +44,15 @@ class springsDecoder:
             
 def main():
     if len(sys.argv) != 2:
-        print("Improper Usage: python day13.py [.txt]")
+        print("Improper Usage: python day13_2.py [.txt]")
         sys.exit(1)
 
     try:
         with open(sys.argv[1], 'r') as file:
             rows = file.readlines()
             springs = springsDecoder()
-            Part1 = springs.decode(rows=rows)
-            print(f"Part 1: {Part1}")
+            Part = springs.decode(rows=rows)
+            print(f"Part 2: {Part}")
 
 
     except FileNotFoundError:
