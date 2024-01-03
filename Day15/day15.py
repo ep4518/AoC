@@ -10,10 +10,22 @@ class Decoder:
         return total    
     
     def decode2(self, rows):
-        sequence = self.parse(rows)
+        sequence = self.parse(rows= rows)
         boxes = self.hashmap(sequence= sequence)
+        focusing_power = self.calculate(boxes= boxes)
             
-        return 0
+        return focusing_power
+    
+    # def calculate(self, boxes: list[list[tuple]]) -> int:
+    #     total = 0
+    #     for i, box in enumerate(boxes):
+    #         for j, lens in enumerate(box):
+    #             total += (i + 1) * (j + 1) * lens[1]
+                
+    #     return total   
+     
+    def calculate(self, boxes: list[list[tuple]]) -> int:
+        return sum((i + 1) * (j + 1) * lens[1] for i, box in enumerate(boxes) for j, lens in enumerate(box))
     
     def hashmap(self, sequence):
         boxes = self.generate_boxes()
@@ -26,11 +38,6 @@ class Decoder:
                 else:
                     instruction += ch
 
-            # label = ''.join(ch for ch in str if ch.isalpha())
-            box_num = self.hash_algorithm(label)
-
-            # print(label, instruction, box_num)
-
             if instruction[0] == '=':
                 boxes = self.add(int(instruction[1]), boxes, label)
             else:
@@ -39,27 +46,26 @@ class Decoder:
         return boxes
     
     def add(self, lens_num: int, boxes: list[list[str]], label: str) -> list[list[str]]:
-        # box_num = self.hash_algorithm(label)
-        # box = boxes[box_num]
-        # if any(box[lens][0] == label for lens in box):
-        #     boxes[box_num][lens_num - 1] = (label, lens_num)
-        # elif any(box[lens][0] != label for lens in box):
-        pass
-        
-        
+        box_num = self.hash_algorithm(label)
+        box = boxes[box_num]
 
+        for i, (existing_label, _) in enumerate(box):
+            if existing_label == label:
+                boxes[box_num][i] = (label, lens_num)
+                return boxes
+
+        boxes[box_num].append((label, lens_num))
         return boxes
+
     
     def subtract(self, boxes: list[list[str]], label: str) -> list[list[str]]:
         box_num = self.hash_algorithm(label)
-        for lens in boxes[box_num]:
-            if lens == label:
-                lens = ''
+        boxes[box_num] = [lens for lens in boxes[box_num] if lens[0] != label]
         
         return boxes
     
     def generate_boxes(self):
-        return [['' for i in range(9)] for _ in range(256)]
+        return [[] for key in range(256)]
 
     def hash_algorithm(self, str: str):
         value = 0
