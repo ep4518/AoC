@@ -63,18 +63,45 @@ else
 
     curl -s "https://adventofcode.com/${YEAR}/day/${day}/input" --cookie "session=${AOC_SESSION}" -o input.txt
 
-    echo -n "#!/usr/bin/env python3
+    touch test.txt
 
+    echo -n "#!/usr/bin/env python3
 import sys
 
+class Decoder:
+    def part1(self, rows):
+        return 0
 
-with open(sys.argv[1], 'r') as f:
-    lines = f.readlines()
-    
-part1 = \"\"
-print(f'Part 1: {part1}')
+    def part2(self, rows):
+        return 0
 
-part2 = \"\"
-print(f'Part 2: {part2}')" > day${day}.py
+def main():
+    if len(sys.argv) != 2:
+        print(\"Improper Usage: python day${day}.py [.txt]\")
+        sys.exit(1)
 
+    try:
+        with open(sys.argv[1], 'r') as file:
+            rows = file.readlines()
+            decoder_instance = Decoder()
+            Part1 = decoder_instance.part1(rows=rows)
+            Part2 = decoder_instance.part2(rows=rows)
+            print(f\"Part 1: {Part1}\")
+            print(f\"Part 2: {Part2}\")
+
+    except FileNotFoundError:
+        print(f\"File '{sys.argv[1]}' not found.\")
+    except PermissionError:
+        print(f\"Permission denied for '{sys.argv[1]}'.\")
+    except Exception as e:
+        print(f\"An error occurred: {e}\")
+
+    return 0
+
+if __name__ == \"__main__\":
+    main()" > day${day}.py
+
+chmod +x day${day}.py 
+
+code day${day}.py 
 fi
