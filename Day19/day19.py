@@ -8,44 +8,47 @@ class Decoder:
         assignments = []
         workflows, parts = self.parse(rows=rows)
         for part in parts:
-            print(part)
-            assignments.append(self.assign(part=part, workflows=workflows))
+            # print(part)
+            assignments.append(self.assign(part=part, workflow=workflows["in"], workflows=workflows))
         
         for assignment in zip(assignments, parts):
             if assignment[0]:
                 total += sum(value for value in assignment[1].values())
-        print(assignments)
         return total
 
     def part2(self, rows):
         return 0
     
-    def assign(self, part, workflows):
-        workflow =  workflows["in"]
-        while workflow[:-1]:
-            for elem in workflow[:-1]:
-                print(elem)
-                colon = elem.find(':')
-                part_val, sign, val = part[elem[0]], elem[1], int(elem[2:colon])
-                print(part_val, sign, val)
-                if (sign == '>' and part_val > val) or (sign == '<' and part_val < val):
-                    print(elem[(colon + 1):])
-                    if elem[(colon + 1):] == 'A':
-                        return 1
-                    elif elem[(colon + 1):] == 'R':
-                        return 0
-                    else: 
-                        print('test') 
-                        workflow = workflows[f"{elem[(colon + 1):]}"]
-                        break
-            print(workflow[-1])
-            if workflow[-1] == 'A':
-                return 1
-            elif workflow[-1] == 'R':
-                return 0
-            else:
-                workflow = workflows[f"{workflow[-1]}"]
-                                
+    def assign(self, part, workflow, workflows):
+        condition_met = False  # Flag to track if a condition has been met
+
+        for elem in workflow[:-1]:
+            colon = elem.find(':')
+            part_val, sign, val = part[elem[0]], elem[1], int(elem[2:colon])
+
+            if (sign == '>' and part_val > val) or (sign == '<' and part_val < val):
+                end = elem[(colon + 1):]
+                if end == 'A':
+                    condition_met = True  # Set the flag to True
+                    return 1
+                elif end == 'R':
+                    return 0
+                else: 
+                    result = self.assign(part, workflow=workflows[f"{end}"], workflows=workflows)
+                    condition_met = True  # Set the flag to True
+                    if result == 1:
+                        return 1  # Return immediately if a condition has been met
+                    else:
+                        break  # Break out of the loop if a recursive call did not meet the condition
+
+        if condition_met or workflow[-1] == 'R':
+            return 0
+
+        if workflow[-1] == 'A':
+            return 1
+        else:
+            result = self.assign(part, workflow=workflows[f"{workflow[-1]}"], workflows=workflows)
+            return result
 
 
     def parse(self, rows):
