@@ -41,7 +41,6 @@ for line in raw_workflows.splitlines():
 
 # loop over parts, if accept add to total
 part1 = 0
-assignments111 = []
 for line in raw_parts.splitlines():
     # {x=787,m=2655,a=1222,s=2876}
     values = line.strip("{}").split(",")
@@ -50,12 +49,8 @@ for line in raw_parts.splitlines():
         vtype, v = value.split("=")
         part[vtype] = int(v)
     if apply_workflows(part, workflow="in") == "A":
-        assignments111.append(1)
         part1 += sum(part.values())
-    else:
-        assignments111.append(0)
 
-print(assignments111)
 print(f"Part 1: {part1}")
 
 

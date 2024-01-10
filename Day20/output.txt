@@ -1,0 +1,4 @@
+The relay contains 5 modules e.g. ['%Broadcaster -> dest = [<__main__.FlipFlop object at 0x104c80b30>]', '%a -> dest = [<__main__.Conjunction object at 0x104c80b90>, <__main__.Conjunction object at 0x104c80c80>]', 'Connections: a', '%b -> dest = [<__main__.Conjunction object at 0x104c80c80>]', 'Connections: a, b']
+%a -> dest = [<__main__.Conjunction object at 0x104c80b90>, <__main__.Conjunction object at 0x104c80c80>]
+Part 1: 0
+Part 2: 0

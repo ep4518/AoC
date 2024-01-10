@@ -7,8 +7,7 @@ class Decoder:
         total = 0
         assignments = []
         workflows, parts = self.parse(rows=rows)
-        for part in parts:
-            # print(part)
+        for part in parts: 
             assignments.append(self.assign(part=part, workflow=workflows["in"], workflows=workflows))
         
         for assignment in zip(assignments, parts):
@@ -17,6 +16,9 @@ class Decoder:
         return total
 
     def part2(self, rows):
+        total = 0
+        workflows, _ = self.parse(rows=rows)
+        print(workflows)
         return 0
     
     def assign(self, part, workflow, workflows):
@@ -93,9 +95,9 @@ def main():
         with open(sys.argv[1], 'r') as file:
             rows = file.readlines()
             decoder_instance = Decoder()
-            Part1 = decoder_instance.part1(rows=rows)
+            # Part1 = decoder_instance.part1(rows=rows)
             Part2 = decoder_instance.part2(rows=rows)
-            print(f"Part 1: {Part1}")
+            # print(f"Part 1: {Part1}")
             print(f"Part 2: {Part2}")
 
     except FileNotFoundError:
