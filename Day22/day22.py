@@ -1,54 +1,70 @@
 #!/usr/bin/env python3
-import sys
-from typing import List
+from sys import argv
+from collections import deque 
 
-def part1(rows: List[str]):
-    max_xyz = [0, 0, 0]
-    for row in rows:
-        print(row)
-        for i in range(3):
-            tmp = max(row[0][i], row[1][i])
-            max_xyz[i] = max(max_xyz[i], tmp)
-    
-    grid = [[['.' for x in range(max_xyz[0])] for y in range(max_xyz[1])] for z in range(max_xyz[2])]
+# Not my day 22.
+class Brick:
 
-    for row in rows:
-        if row[0] != row[1]:
+    # 1,0,1~1,2,1
+    def __init__(self, line) -> None:
+        points = [list(map(int, p.split(','))) for p in line.strip().split('~')]
+        p1, p2 = sorted(points, key=lambda p: p[2])
+        self.x1, self.y1, self.z1 = p1
+        self.x2, self.y2, self.z2 = p2
+        assert self.z1 <= self.z2
+        self.supported_by = set()
+        self.supports = set()
 
-    for k, z in enumerate(grid):
-        for j, y in enumerate(z):
-            for i, x in enumerate(y):
-                for block in rows:
-                    pass
+    def __repr__(self):
+        return f"<brick ({self.x1, self.y1, self.z1}, {self.x2, self.y2, self.z2})>"
 
-    print(list(grid[z][0][0] for z in range(len(grid))))
-            
-    return 0
-def part2(rows: List[str]):
-    return 0
-def main():
-    if len(sys.argv) != 2:
-        print("Improper Usage: python day22.py [.txt]")
-        sys.exit(1)
+    def overlaps(self, other) -> bool:
+        return (
+            max(self.x1, other.x1) <= min(self.x2, other.x2) and
+            max(self.y1, other.y1) <= min(self.y2, other.y2)
+        )
 
-    try:
-        with open(sys.argv[1], 'r') as file:
-            rows = file.readlines()
-            rows = [r.rstrip().split('~') for r in rows]
-            rows = [[tuple(int(el) for el in row[0].split(',')), tuple(int(el) for el in row[1].split(','))] for _, row in enumerate(rows)]
-            Part1 = part1(rows=rows)
-            Part2 = part2(rows=rows)
-            print(f"Part 1: {Part1}")
-            print(f"Part 2: {Part2}")
+with open(argv[1], 'r') as f:
+    rows = f.readlines()
 
-    except FileNotFoundError:
-        print(f"File '{sys.argv[1]}' not found.")
-    except PermissionError:
-        print(f"Permission denied for '{sys.argv[1]}'.")
-    except Exception as e:
-        print(f"An error occurred: {e}")
+bricks = sorted([Brick(line) for line in rows], key=lambda b: b.z1)
 
-    return 0
+# Bricks fall
+for i, brick in enumerate(bricks):
+    floor = 1
+    for other in bricks[:i]:
+        if brick.overlaps(other):
+            floor = max(floor, other.z2 + 1)
+    fall_distance = brick.z1 - floor
+    brick.z1 -= fall_distance
+    brick.z2 -= fall_distance
 
-if __name__ == "__main__":
-    main()
+bricks.sort(key=lambda b : b.z2)
+
+for i, brick in enumerate(bricks):
+    for other in bricks[:i]:
+        if brick.overlaps(other) and other.z2 == brick.z1 - 1:
+            brick.supported_by.add(other)
+            other.supports.add(brick)
+
+part1 = 0
+for brick in bricks:
+    if all(len(other.supported_by) > 1 for other in brick.supports):
+        part1 += 1
+print(f"Part 1: {part1}")
+
+part2 = 0
+for brick in bricks:
+    dq  = deque([brick])
+    falling = set()
+    while dq:
+        b = dq.popleft()
+        if b in falling:
+            continue
+        falling.add(b)
+        for sb in b.supports:
+            if sb.supported_by.issubset(falling):
+                dq.append(sb)
+    part2 += len(falling) - 1
+
+print(f"Part 2: {part2}")
