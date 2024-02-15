@@ -50,7 +50,7 @@ def part2(rows: List[int]) -> int:
         print("\n")
         if cycle > 240:
             break
-    
+    output.append(curr_line) 
     for row in output:
         print(('').join(row))
     return 0
