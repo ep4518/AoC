@@ -93,7 +93,7 @@ def part2(rows: List[int]) -> int:
 
         if grid[(source[0],source[1])] == 'o':
             grid[(source[0], source[1])] = '+'
-            prn_grid(grid)
+            # prn_grid(grid)
             return i
 
 with open(sys.argv[1], 'r') as f:
