@@ -85,60 +85,29 @@ class Game():
     def descend(self, location, wind):
         dx = self.wind[wind]
         new = set()
-
-        def clear_current_positions():
+        
+        def my_func(dx, dy, symbol='@'): 
             for x, y in location:
-                self.grid[(x, y)] = '.'
-
-        def check_and_update_landing():
-            # Check if movement would result in landing on a block or floor after moving sideways)
-            if any(self.grid[(x + dx, y - 1)] in ['#', '-'] for x, y in location):
-                # Update positions without moving down, object lands
-                for x, y in location:
+                self.grid[(x, y)] = '.'               
+            for x, y in location:
+                if symbol == '#':
                     self.block_height = max(y, self.block_height)
-                    self.grid[(x + dx, y)] = '#'
-                    new.add((x + dx, y))
-                return True
-            return False
+                self.grid[(x + dx, y + dy)] = symbol
+                new.add((x + dx, y + dy))
 
-        # Check for immediate obstacle beneath
-        if any(self.grid[(x, y - 1)] in ['#', '-'] for x, y in location):
-            clear_current_positions()
-            # Move sideways if possible, then check for landing due to obstacle below new position
-            if not check_and_update_landing():
-                for x, y in location:
-                    # If no obstacle below after moving sideways, move down
-                    self.block_height = max(y, self.block_height)
-                    self.grid[(x + dx, y - 1)] = '#'
-                    new.add((x + dx, y - 1))
-            return new, True
-                
-
-        # If moving sideways into a vertical obstacle, move down directly
-        if any(self.grid[(x + dx, y - 1)] in ['|'] for x, y in location):
-            clear_current_positions()
-            for x, y in location:
-                self.grid[(x, y - 1)] = '@'
-                new.add((x, y - 1))
-            return new, False
-        elif any(self.grid[(x + dx, y)] in ['#'] for x, y in location) and not any(self.grid[(x, y - 1)] in ['#'] for x, y in location):
-            clear_current_positions()
-            for x, y in location:
-                self.grid[(x, y - 1)] = '@'
-                new.add((x, y - 1))
-            return new, False
-        else:
-            clear_current_positions()
-            # Check for landing due to obstacle below new position after moving sideways
-            if not check_and_update_landing():
-                for x, y in location:
-                    # If no immediate obstacle, proceed with moving down and sideways
-                    self.grid[(x + dx, y - 1)] = '@'
-                    new.add((x + dx, y - 1))
-            else:
+        if any(self.grid[(x + dx, y)] in ['#', '|'] for x, y in location):
+            if not any(self.grid[(x, y - 1)] in ['#', '-'] for x, y in location):
+                my_func(0, -1)  # move directly down
+                return new, False
+            else: 
+                my_func(0, 0, '#') # landed
                 return new, True
-
-        return new, False
+        elif any(self.grid[(x + dx, y - 1)] in ['#', '-'] for x, y in location): 
+            my_func(dx, 0, '#') # landed
+            return new, True
+        else:
+            my_func(dx, -1) # continue
+            return new, False
      
 
     def move_shape(self, s='hline'): 
@@ -146,10 +115,10 @@ class Game():
         while True:
             w = self.q.pop()
             current, flag = self.descend(current, w)
-            self.prn_grid()
-            print(self.q)
+            # self.prn_grid()
+            # print(w)
             if flag: 
-                self.prn_grid()
+                # self.prn_grid()
                 break
             if self.q == []:
                 self.q = [[ch for ch in row[::-1]] for row in self.rows][0] 
@@ -157,12 +126,10 @@ class Game():
 
 def part1(rows: List[int]) -> int:
     game = Game(rows)
-    game.round()
-    game.round()
-    # for _ in range(2022//5):
-    #     game.round()
-    # game.move_shape('hline')
-    # game.move_shape('cross')
+    for _ in range(2022//5):
+        game.round()
+    game.move_shape('hline')
+    game.move_shape('cross')
     return game.block_height
 
 def part2(rows: List[int]) -> int:
