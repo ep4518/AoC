@@ -1,0 +1,16 @@
+# @cache
+# def recursive(node, time, open):
+#     next_nodes, flow = nodes[node]
+#     print(next_nodes)
+#     if time == 0:
+#         return 0
+#     score = max(recursive(n, time - 1, open) for n in next_nodes)
+
+#     if flow > 0 and node not in open:
+#         new_open = set(open)
+#         new_open.add(node)
+#         score = max(score,
+#                     (time - 1) * flow
+#                     + recursive(node, time - 1, frozenset(new_open)))
+
+#     return score

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sys
 from typing import List
+from tqdm import tqdm
 
 class Game():
     def __init__(self, rows):
@@ -52,6 +53,12 @@ class Game():
             for col in range(0, 9):  # Assuming 9 is the width including borders
                 print(self.grid.get((col, row), ' '), end='')  # Print each cell
             print()  # Newline after each row
+        
+    def prn_top(self):
+        for row in range(self.grid_height, self.grid_height-5, -1):  # Iterate over rows in reverse
+            for col in range(0, 9):  # Assuming 9 is the width including borders
+                print(self.grid.get((col, row), ' '), end='')  # Print each cell
+            print()  # Newline after each row 
     
     def add_shape(self, shape):
         s = sorted(shape, key=lambda x: x[1])
@@ -130,11 +137,31 @@ def part1(rows: List[int]) -> int:
         game.round()
     game.move_shape('hline')
     game.move_shape('cross')
+    game.prn_top()
     return game.block_height
 
 def part2(rows: List[int]) -> int:
-    return 0
+    game = Game(rows)
+    x, r = divmod(1000000000000,len(rows[0]))
+    for _ in tqdm(range(len(rows[0]))):
+        game.round()
+    
+    ans = game.block_height * x
+    a,b = divmod(r, 5)
+    new = Game(rows)
+    for _ in range(a):
+        new.round()
+    print(b)
+    # new.move_shape('hline')
+    # new.move_shape('cross')
+    # new.move_shape('el')
+    # new.move_shape('vline')  
+    ans += new.block_height
+
+    return ans
+
 
 with open(sys.argv[1], "r") as f:
     rows = f.read().split('\n')
-print(f"Part 1: {part1(rows)}")
+# print(f"Part 1: {part1(rows)}")
+print(f"Part 2: {part2(rows)}")
