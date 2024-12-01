@@ -38,22 +38,17 @@ touch test.txt
 echo -n "#!/usr/bin/env python3
 import sys
 
-def part1(rows):
-    return 0
-
-def part2(rows):
-    return 0
-
 with open(sys.argv[1], 'r') as file:
-    rows = file.readlines()
-    Part1 = part1(rows=rows)
-    Part2 = part2(rows=rows)
-    print(f\"Part 1: {Part1}\")
-    print(f\"Part 2: {Part2}\")
+    rows = [r.strip() for r in file.readlines()]
+
+for row in rows:
+    print(row)
 
 
 " > day${day}.py
 
 chmod +x day${day}.py 
 
-code day${day}.py 
+code day${day}.py input.txt test.txt
+
+open -a "Microsoft Edge" "https://adventofcode.com/${YEAR}/day/${day}"
