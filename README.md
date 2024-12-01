@@ -5,10 +5,6 @@ TORUN
 
 ./day10.py input.txt
 
-OR
-
-./day11_2.py test.txt > output.txt
-
 For relevant day/directory
 
 
