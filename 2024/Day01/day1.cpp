@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include <math.h>
+#include<map>
 // g++ day1.cpp -o day1
 
 using namespace std;
@@ -19,21 +20,9 @@ int main() {
     }
     f.close();
 
-    int tot1, tot2, cnt = 0;
+    int tot1, tot2 = 0;
 
-    for (int i = 0; i < left.size(); i++) {
-        //  Part 2
-        cnt = 0;
-
-        for (int j = 0; j < right.size(); j++) {
-
-            if (left[i] == right[j]) cnt ++;
-
-        }
-
-        tot2 += cnt * left[i];
-
-    }
+    map<int,int> count;
 
     sort(left.begin(), left.end());
     sort(right.begin(), right.end());
@@ -42,6 +31,13 @@ int main() {
         // Part 1
         tot1 += abs(left[i] - right[i]);
 
+    }
+
+    for (int num: right) {
+        count[num]++;
+    }
+    for (int num: left) {
+        tot2 += count[num] * num;
     }
 
     cout << "Part 1: " << tot1 << endl;

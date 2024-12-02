@@ -6,13 +6,14 @@ from itertools import combinations
 with open(sys.argv[1], 'r') as file:
     rows = [r.strip() for r in file.readlines()]
 
+
 def parse_row(row: str):
     prev_num = None
     prev_diff = 0
     flag = True
     for num in row.split(' '):
         num = int(num)
-        if prev_num == None:
+        if prev_num is None:
             prev_num = num
             continue
         else:
@@ -22,11 +23,12 @@ def parse_row(row: str):
                 break
         prev_diff = diff
         prev_num = num
-    
-    if flag == True:
+
+    if flag:
         return 1
-    
+
     return 0
+
 
 cnt = 0
 for row in rows:
