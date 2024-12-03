@@ -15,6 +15,7 @@ find_package(Boost REQUIRED)
 if(Boost_FOUND)
     # Add the executable
     add_executable(AoC 2024/Day02/day2.cpp)
+    add_executable(AoC3 2024/Day03/day3.cpp)
 
     # Include Boost headers (header-only library)
     target_include_directories(AoC PRIVATE ${Boost_INCLUDE_DIRS})

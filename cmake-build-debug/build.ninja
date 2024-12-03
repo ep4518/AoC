@@ -72,6 +72,37 @@ build AoC: CXX_EXECUTABLE_LINKER__AoC_Debug CMakeFiles/AoC.dir/2024/Day02/day2.c
   TARGET_FILE = AoC
   TARGET_PDB = AoC.dbg
 
+# =============================================================================
+# Object build statements for EXECUTABLE target AoC3
+
+
+#############################################
+# Order-only phony target for AoC3
+
+build cmake_object_order_depends_target_AoC3: phony || CMakeFiles/AoC3.dir
+
+build CMakeFiles/AoC3.dir/2024/Day03/day3.cpp.o: CXX_COMPILER__AoC3_unscanned_Debug /Users/Edward/AoC/2024/Day03/day3.cpp || cmake_object_order_depends_target_AoC3
+  DEP_FILE = CMakeFiles/AoC3.dir/2024/Day03/day3.cpp.o.d
+  FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -mmacosx-version-min=14.6 -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/AoC3.dir
+  OBJECT_FILE_DIR = CMakeFiles/AoC3.dir/2024/Day03
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target AoC3
+
+
+#############################################
+# Link the executable AoC3
+
+build AoC3: CXX_EXECUTABLE_LINKER__AoC3_Debug CMakeFiles/AoC3.dir/2024/Day03/day3.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -mmacosx-version-min=14.6
+  OBJECT_DIR = CMakeFiles/AoC3.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = AoC3
+  TARGET_PDB = AoC3.dbg
+
 
 #############################################
 # Utility command for edit_cache
@@ -106,7 +137,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Folder: /Users/Edward/AoC/cmake-build-debug
 
-build all: phony AoC
+build all: phony AoC AoC3
 
 # =============================================================================
 # Built-in targets
