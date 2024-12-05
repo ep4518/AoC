@@ -4,6 +4,7 @@
 #include <sstream>
 #include <string>
 #include <regex>
+// g++ --std=c++20 day3.cpp -o day3
 
 using namespace std;
 
@@ -32,8 +33,6 @@ int main() {
 
         while(it != end) {
             std::smatch match = *it;
-
-            cout << match[0] << endl;
 
             if (match[0].compare("do()") == 0) flag = true;
             else if (match[0].compare("don't()") == 0) flag = false;

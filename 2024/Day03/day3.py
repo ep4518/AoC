@@ -19,48 +19,19 @@ mul_pattern = re.compile(r"mul\((-?\d+),\s*(-?\d+)\)")
 
 print(f'Part 1: {sum([sum([int(x)*int(y) for (x,y) in mul_pattern.findall(row)]) for row in rows])}') 
 
-do_pattern = re.compile(r"do\(\)")
-dont_pattern = re.compile(r"don't\(\)")
+mul_pattern = re.compile(r"mul\((-?\d+),\s*(-?\d+)\)|do\(\)|don't\(\)")
 
 do_flag = True
 
 xx = ('').join(rows)
 
-mul = [(m.start(0), m.end(0), tuple(map(int, m.groups()))) for m in re.finditer(mul_pattern, xx)][::-1]
-do = [(m.start(0), m.end(0)) for m in re.finditer(do_pattern, xx)][::-1]
-dont = [(m.start(0), m.end(0)) for m in re.finditer(dont_pattern, xx)][::-1]
-
-i = 0
 tot = 0
-start, _, x = mul.pop()
-x = prod(x)
-do_i, _ = do.pop()
-dont_i, _ = dont.pop()
-while mul:
-
-    if i == start:
-        if do_flag:
-            tot += x
+it = re.finditer(mul_pattern, xx)
+while (m := next(it, None)) is not None:
+    group, groups = m.group(), m.groups()
+    if group == "do()": do_flag = True
+    elif group == "don't()": do_flag = False
+    elif groups != (None, None):
+        tot +=  int(groups[0]) * int(groups[1]) if do_flag else 0
         
-        start, _, x = mul.pop()
-        x = prod(x)
-
-    if i == do_i:
-        do_flag = True
-        try:
-            do_i, _ = do.pop()
-        except:
-            do_i = float('inf')
-
-
-    if i == dont_i:
-        do_flag = False 
-        try:
-            dont_i, _ = dont.pop()
-        except:
-            dont_i = float('inf')
-
-    i+=1
-
-        
-print(f'Part 2: {tot+x}')
+print(f'Part 2: {tot}')
