@@ -16,7 +16,8 @@
 					"targetIndexes" : 
 					[
 						0,
-						1
+						1,
+						2
 					]
 				}
 			],
@@ -32,7 +33,8 @@
 					"targetIndexes" : 
 					[
 						0,
-						1
+						1,
+						2
 					]
 				}
 			],
@@ -40,9 +42,9 @@
 			[
 				{
 					"directoryIndex" : 0,
-					"id" : "AoC::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-AoC-Debug-769530ad8adec8185171.json",
-					"name" : "AoC",
+					"id" : "AoC2::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-AoC2-Debug-0c21361d0ef30a225dd3.json",
+					"name" : "AoC2",
 					"projectIndex" : 0
 				},
 				{
@@ -50,6 +52,13 @@
 					"id" : "AoC3::@6890427a1f51a3e7e1df",
 					"jsonFile" : "target-AoC3-Debug-86b3909e3ab107d5439f.json",
 					"name" : "AoC3",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "AoC4::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-AoC4-Debug-4fd8625a0563a0cc7229.json",
+					"name" : "AoC4",
 					"projectIndex" : 0
 				}
 			]

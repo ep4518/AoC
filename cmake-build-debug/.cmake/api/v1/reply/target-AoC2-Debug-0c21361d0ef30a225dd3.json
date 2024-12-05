@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "AoC"
+			"path" : "AoC2"
 		}
 	],
 	"backtrace" : 2,
@@ -39,7 +39,7 @@
 			{
 				"command" : 2,
 				"file" : 1,
-				"line" : 21,
+				"line" : 22,
 				"parent" : 0
 			}
 		]
@@ -75,7 +75,7 @@
 			]
 		}
 	],
-	"id" : "AoC::@6890427a1f51a3e7e1df",
+	"id" : "AoC2::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -91,8 +91,8 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "AoC",
-	"nameOnDisk" : "AoC",
+	"name" : "AoC2",
+	"nameOnDisk" : "AoC2",
 	"paths" : 
 	{
 		"build" : ".",

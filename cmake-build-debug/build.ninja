@@ -41,36 +41,36 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = /Users/Edward/AoC/cmake-build-debug/
 # =============================================================================
-# Object build statements for EXECUTABLE target AoC
+# Object build statements for EXECUTABLE target AoC2
 
 
 #############################################
-# Order-only phony target for AoC
+# Order-only phony target for AoC2
 
-build cmake_object_order_depends_target_AoC: phony || CMakeFiles/AoC.dir
+build cmake_object_order_depends_target_AoC2: phony || CMakeFiles/AoC2.dir
 
-build CMakeFiles/AoC.dir/2024/Day02/day2.cpp.o: CXX_COMPILER__AoC_unscanned_Debug /Users/Edward/AoC/2024/Day02/day2.cpp || cmake_object_order_depends_target_AoC
-  DEP_FILE = CMakeFiles/AoC.dir/2024/Day02/day2.cpp.o.d
+build CMakeFiles/AoC2.dir/2024/Day02/day2.cpp.o: CXX_COMPILER__AoC2_unscanned_Debug /Users/Edward/AoC/2024/Day02/day2.cpp || cmake_object_order_depends_target_AoC2
+  DEP_FILE = CMakeFiles/AoC2.dir/2024/Day02/day2.cpp.o.d
   FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -mmacosx-version-min=14.6 -fcolor-diagnostics
   INCLUDES = -I/Users/Edward/vcpkg/installed/arm64-osx/include
-  OBJECT_DIR = CMakeFiles/AoC.dir
-  OBJECT_FILE_DIR = CMakeFiles/AoC.dir/2024/Day02
+  OBJECT_DIR = CMakeFiles/AoC2.dir
+  OBJECT_FILE_DIR = CMakeFiles/AoC2.dir/2024/Day02
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target AoC
+# Link build statements for EXECUTABLE target AoC2
 
 
 #############################################
-# Link the executable AoC
+# Link the executable AoC2
 
-build AoC: CXX_EXECUTABLE_LINKER__AoC_Debug CMakeFiles/AoC.dir/2024/Day02/day2.cpp.o
+build AoC2: CXX_EXECUTABLE_LINKER__AoC2_Debug CMakeFiles/AoC2.dir/2024/Day02/day2.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -mmacosx-version-min=14.6
-  OBJECT_DIR = CMakeFiles/AoC.dir
+  OBJECT_DIR = CMakeFiles/AoC2.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_FILE = AoC
-  TARGET_PDB = AoC.dbg
+  TARGET_FILE = AoC2
+  TARGET_PDB = AoC2.dbg
 
 # =============================================================================
 # Object build statements for EXECUTABLE target AoC3
@@ -102,6 +102,37 @@ build AoC3: CXX_EXECUTABLE_LINKER__AoC3_Debug CMakeFiles/AoC3.dir/2024/Day03/day
   PRE_LINK = :
   TARGET_FILE = AoC3
   TARGET_PDB = AoC3.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target AoC4
+
+
+#############################################
+# Order-only phony target for AoC4
+
+build cmake_object_order_depends_target_AoC4: phony || CMakeFiles/AoC4.dir
+
+build CMakeFiles/AoC4.dir/2024/Day04/day4.cpp.o: CXX_COMPILER__AoC4_unscanned_Debug /Users/Edward/AoC/2024/Day04/day4.cpp || cmake_object_order_depends_target_AoC4
+  DEP_FILE = CMakeFiles/AoC4.dir/2024/Day04/day4.cpp.o.d
+  FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -mmacosx-version-min=14.6 -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/AoC4.dir
+  OBJECT_FILE_DIR = CMakeFiles/AoC4.dir/2024/Day04
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target AoC4
+
+
+#############################################
+# Link the executable AoC4
+
+build AoC4: CXX_EXECUTABLE_LINKER__AoC4_Debug CMakeFiles/AoC4.dir/2024/Day04/day4.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -mmacosx-version-min=14.6
+  OBJECT_DIR = CMakeFiles/AoC4.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = AoC4
+  TARGET_PDB = AoC4.dbg
 
 
 #############################################
@@ -137,7 +168,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Folder: /Users/Edward/AoC/cmake-build-debug
 
-build all: phony AoC AoC3
+build all: phony AoC2 AoC3 AoC4
 
 # =============================================================================
 # Built-in targets

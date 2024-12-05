@@ -14,11 +14,12 @@ find_package(Boost REQUIRED)
 
 if(Boost_FOUND)
     # Add the executable
-    add_executable(AoC 2024/Day02/day2.cpp)
+    add_executable(AoC2 2024/Day02/day2.cpp)
     add_executable(AoC3 2024/Day03/day3.cpp)
+    add_executable(AoC4 2024/Day04/day4.cpp)
 
     # Include Boost headers (header-only library)
-    target_include_directories(AoC PRIVATE ${Boost_INCLUDE_DIRS})
+    target_include_directories(AoC2 PRIVATE ${Boost_INCLUDE_DIRS})
 else()
     message(FATAL_ERROR "Boost libraries not found!")
 endif()
