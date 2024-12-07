@@ -5,21 +5,17 @@ p1 = 0
 p2 = 0
 
 rows = open(sys.argv[1]).read().strip().split('\n')
-for i, R in enumerate(rows):
-    t = R.rfind('^')
+for i, row in enumerate(rows):
+    t = row.rfind('^')
     if t != -1:
         start = (i, t)
 
 R = len(rows)
 C = len(rows[0])
-for r in range(R):
-    for c in range(C):
-        if rows[r][c] == '^':
-            sr,sc = r,c
 
 for o_r in range(R):
     for o_c in range(C):
-        r,c = sr,sc
+        r,c = start
         d = 0 # 0=up, 1=right, 2=down, 3=left
         SEENWDIR = set()
         SEEN = set()
