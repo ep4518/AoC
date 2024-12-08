@@ -2,6 +2,7 @@
 import sys
 from collections import defaultdict
 from itertools import combinations
+import numpy as np
 
 G = open(sys.argv[1]).read().strip().split('\n')
 R = len(G)
@@ -14,34 +15,22 @@ for i, row in enumerate(G):
         if ch != '.':
             antennas[ch].append((i,j))
 
-def displacement(X: tuple, Y: tuple) -> tuple:
-    x1, y1 = X
-    x2, y2 = Y
-    return (x2 - x1, y2 - y1)
-
-def add(X: tuple, Y: tuple, negate: int) -> tuple:
-    x1, y1 = X
-    x2, y2 = Y
-    return (x1 + negate * x2, y1 + negate * y2)
-
-def times(X: tuple, inn: int) -> tuple:
-    return (X[0]*inn, X[1]*inn)
-
 antinodes1 = set()
 antinodes2 = set()
 for antenna, location in antennas.items():
+    location = np.array(location)
     for pair in combinations(location, 2):
-        disp = displacement(*pair)
+        disp = pair[1] - pair[0]
         for (ant, switch) in zip(pair, [-1, 1]):
-            anti = add(ant, disp, switch)
+            anti = ant + switch * disp
             if (0 <= anti[0] < R) and (0 <= anti[1] < C):
-                antinodes1.add(anti)
+                antinodes1.add(tuple(anti.tolist()))
 
-            antinodes2.add(ant)
+            antinodes2.add(tuple(ant.tolist()))
             k = 1
             while (0 <= anti[0] < R) and (0 <= anti[1] < C):
-                antinodes2.add(anti)
-                anti = add(ant, times(disp, k), switch)
+                antinodes2.add(tuple(anti.tolist()))
+                anti = ant + disp * k * switch
                 k += 1
 
 for i in range(R):
