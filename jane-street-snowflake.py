@@ -1,5 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import networkx as nx
+import matplotlib.animation as animation
 
 #     3         13
 #      \   8   /
@@ -24,43 +26,6 @@ edges = [(0, 4),(1, 4),(1, 6),(2, 4),(2, 7),(3, 6),(4, 6),(4, 7),
 lines = [(0, 4, 9, 14, 18), (3, 6, 9, 12, 15), (5, 7, 9, 11, 13),
         (2, 4, 6, 8), (8, 11, 14, 17), (2, 7, 12, 17), 
         (1, 4, 7, 10), (10, 12, 14, 16), (1, 6, 11, 16)]
-
-class AdjMatrix:
-    def __init__(self, n):
-        self._adj_matrix = np.zeros((n,n), dtype=int)
-
-    def add_edge(self, i, j):
-        self._validate_indices(i,j)
-        self._adj_matrix[i][j] = 1
-        self._adj_matrix[j][i] = 1
-
-    def rm_edge(self, i, j):
-        self._validate_indices(i,j)
-        self._adj_matrix[i][j] = 0
-        self._adj_matrix[j][i] = 0
-
-    def look_up(self, i, j):
-        self._validate_indices(i, j)
-        return self._adj_matrix[i][j] == 1
-
-    def get_adjacent_nodes(self, node):
-        self._validate_indices(node, node)
-        return [i for i in range(self._adj_matrix.shape[0]) if self._adj_matrix[node][i] == 1]
-    
-    def _validate_indices(self, i, j):
-        n = self._adj_matrix.shape[0]
-        if i < 0 or i >= n or j < 0 or j >= n:
-            raise IndexError("Index out of bounds for the adjacency matrix.")
-        
-
-    def __iter__(self):
-        return iter(self._adj_matrix)
-    
-    def __repr__(self):
-        return "\n".join(["\t".join(map(str, row)) for row in self._adj_matrix])
-
-    def get_matrix(self):
-        return self._adj_matrix
 
 def moves(state, final_states=None, visited_states=None, depth=0):
     if final_states is None:
@@ -102,14 +67,6 @@ def moves(state, final_states=None, visited_states=None, depth=0):
         final_states.append(state)
     return final_states
 
-# adjMatrix = AdjMatrix(19)
-
-# for (i,j) in edges:
-#     adjMatrix.add_edge(i,j)
-
-# plt.imshow(adjMatrix._adj_matrix, cmap='hot', interpolation='nearest')
-# plt.show()
-
 data = {}
 results = {}
 
@@ -120,4 +77,46 @@ for i in range(19):
     data[i] = moves(state)
     results[i] = min([sum(map(lambda value: value, state.values())) for state in data[i]])
 
+print(125 * "=")
 print(results)
+print(125 * "=")
+
+iS = 0
+
+# Initial state of the graph (example state)
+initial_state = {i: True for i in range(19)}
+initial_state[iS] = False
+
+# Generate the sequence of states
+state_sequence = [initial_state] + moves(initial_state)
+
+G = nx.from_edgelist(edges)
+pos = nx.spring_layout(G)
+
+# Build the animation
+fig, ax = plt.subplots(figsize=(6, 6))
+
+def update(num):
+    ax.clear()
+    state = state_sequence[num]
+
+    # Map state to colors
+    node_colors = ["yellow" if state[node] else "skyblue" for node in G.nodes]
+
+    # Draw the graph
+    nx.draw(
+        G, pos=pos, with_labels=True, 
+        node_color=node_colors, 
+        edge_color="gray", 
+        node_size=1000, 
+        font_weight="bold", ax=ax
+    )
+
+    ax.set_title(f"Initial State {iS}\nFinal State {num + 1}")
+
+# Create animation
+ani = animation.FuncAnimation(fig, update, frames=len(state_sequence), interval=1000, repeat=True)
+plt.show()
+
+# plt.imshow(adjMatrix._adj_matrix, cmap='hot', interpolation='nearest')
+# plt.show()
