@@ -7,9 +7,6 @@ import networkx as nx
 pattern = re.compile(r'(?P<loc1>[a-zA-Z]+) to (?P<loc2>[a-zA-Z]+) = (?P<dist>\d+)') 
 data = list(map(lambda x: list(x.groupdict().values()) , list(map(pattern.match, open(sys.argv[1]).read().splitlines()))))
 
-locations = set()
-relations = {}
-
 G = nx.Graph()
 
 for a, b, dist in data:
