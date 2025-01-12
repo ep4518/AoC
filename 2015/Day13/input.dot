@@ -1,0 +1,30 @@
+strict graph day13 { 
+	B -- A [ label ="91"];
+	C -- A [ label ="-116"];
+	C -- B [ label ="-51"];
+	D -- A [ label ="108"];
+	D -- B [ label ="-91"];
+	D -- C [ label ="-90"];
+	E -- A [ label ="29"];
+	E -- B [ label ="-40"];
+	E -- C [ label ="-115"];
+	E -- D [ label ="-64"];
+	F -- A [ label ="-178"];
+	F -- B [ label ="74"];
+	F -- C [ label ="24"];
+	F -- D [ label ="44"];
+	F -- E [ label ="78"];
+	G -- A [ label ="41"];
+	G -- B [ label ="99"];
+	G -- C [ label ="28"];
+	G -- D [ label ="129"];
+	G -- E [ label ="88"];
+	G -- F [ label ="48"];
+	M -- A [ label ="-49"];
+	M -- B [ label ="-3"];
+	M -- C [ label ="105"];
+	M -- D [ label ="71"];
+	M -- E [ label ="-165"];
+	M -- F [ label ="-131"];
+	M -- G [ label ="-92"];
+}
